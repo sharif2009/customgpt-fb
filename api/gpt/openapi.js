@@ -24,9 +24,9 @@ function buildSchema(baseUrl) {
     components: {
       securitySchemes: {
         GptActionSecret: {
-          type: "apiKey",
-          in: "header",
-          name: "x-gpt-action-secret"
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "GPT_ACTION_SECRET"
         }
       },
       schemas: {

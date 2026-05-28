@@ -1,0 +1,17 @@
+{
+  "name": "customgpt-fb",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "lint": "node --check api/*.js lib/*.js",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/node": "^3.2.27"
+  },
+  "devDependencies": {
+    "vercel": "^34.3.0"
+  }
+}

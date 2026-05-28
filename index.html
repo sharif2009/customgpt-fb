@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FB Business Control</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div>
+          <p class="eyebrow">Business Inbox + Ads</p>
+          <h1>Facebook Control Dashboard</h1>
+        </div>
+        <button id="refreshBtn" class="primary-btn">Refresh</button>
+      </section>
+
+      <section class="metrics-grid">
+        <article class="metric">
+          <span>Spend</span>
+          <strong id="spend">$0.00</strong>
+        </article>
+        <article class="metric">
+          <span>Impressions</span>
+          <strong id="impressions">0</strong>
+        </article>
+        <article class="metric">
+          <span>Clicks</span>
+          <strong id="clicks">0</strong>
+        </article>
+        <article class="metric">
+          <span>Comments</span>
+          <strong id="commentsCount">0</strong>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Recent Post Comments</h2>
+            <span id="commentStatus">Waiting</span>
+          </div>
+          <div id="commentsList" class="list"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>Ads Control</h2>
+            <span id="adsStatus">Waiting</span>
+          </div>
+          <div id="adsList" class="list"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

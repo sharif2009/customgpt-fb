@@ -37,8 +37,8 @@ function compactPost(post) {
 
 function compactComment(comment) {
   return {
-    id: comment.id,
-    post_id: comment.post_id,
+    comment_id_for_reply: comment.id,
+    parent_post_id: comment.post_id,
     from: comment.from?.name || "Facebook User",
     text: truncate(comment.message || "No message text", 180),
     created_time: comment.created_time,

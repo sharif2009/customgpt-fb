@@ -99,7 +99,7 @@ function buildSchema(baseUrl) {
               in: "path",
               required: true,
               schema: { type: "string" },
-              description: "Facebook comment ID."
+              description: "Facebook comment ID. Use comment_id_for_reply from getFacebookBusinessSummary. Do not use parent_post_id or post IDs."
             }
           ],
           requestBody: {

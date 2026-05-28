@@ -1,4 +1,3 @@
-import { requireGptActionAuth } from "../../../lib/auth.js";
 import { handleError, json, methodNotAllowed, readJson } from "../../../lib/http.js";
 import { updateAdFields, updateAdStatus } from "../../../lib/meta.js";
 
@@ -8,7 +7,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    requireGptActionAuth(req);
     const { adId } = req.query;
     const body = await readJson(req);
     const result = body.status

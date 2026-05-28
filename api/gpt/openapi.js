@@ -22,13 +22,6 @@ function buildSchema(baseUrl) {
     },
     servers: [{ url: baseUrl }],
     components: {
-      securitySchemes: {
-        GptActionSecret: {
-          type: "http",
-          scheme: "bearer",
-          bearerFormat: "GPT_ACTION_SECRET"
-        }
-      },
       schemas: {
         AdStatusUpdate: {
           type: "object",
@@ -53,7 +46,6 @@ function buildSchema(baseUrl) {
         }
       }
     },
-    security: [{ GptActionSecret: [] }],
     paths: {
       "/api/gpt/summary": {
         get: {

@@ -79,15 +79,7 @@ Create a Custom GPT and add an Action:
 https://your-project.vercel.app/api/gpt/openapi
 ```
 
-4. Set authentication to API Key.
-5. Choose custom header.
-6. Header name:
-
-```txt
-x-gpt-action-secret
-```
-
-7. Secret value: use the same value as `GPT_ACTION_SECRET` in Vercel.
+4. Set authentication to None.
 
 Suggested GPT instruction:
 

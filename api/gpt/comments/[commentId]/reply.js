@@ -1,4 +1,3 @@
-import { requireGptActionAuth } from "../../../../lib/auth.js";
 import { handleError, json, methodNotAllowed, readJson } from "../../../../lib/http.js";
 import { replyToComment } from "../../../../lib/meta.js";
 
@@ -8,7 +7,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    requireGptActionAuth(req);
     const { commentId } = req.query;
     const { message } = await readJson(req);
 

@@ -1,4 +1,3 @@
-import { requireGptActionAuth } from "../../lib/auth.js";
 import { handleError, json, methodNotAllowed } from "../../lib/http.js";
 import { getAdAccountInsights, getAds, getRecentComments, getRecentPosts } from "../../lib/meta.js";
 
@@ -8,7 +7,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    requireGptActionAuth(req);
     const [insights, posts, comments, ads] = await Promise.all([
       getAdAccountInsights(),
       getRecentPosts(),

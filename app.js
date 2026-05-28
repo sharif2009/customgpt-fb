@@ -66,7 +66,7 @@ function renderComments() {
     row.innerHTML = `
       <strong>${escapeHtml(comment.from?.name || "Facebook User")}</strong>
       <p>${escapeHtml(comment.message || "No message text")}</p>
-      <small>${escapeHtml(comment.created_time || "")}</small>
+      <small>${escapeHtml(formatCommentMeta(comment))}</small>
     `;
     target.appendChild(row);
   }
@@ -125,6 +125,17 @@ function setStatus(id, value) {
 
 function renderError(id, message) {
   document.getElementById(id).innerHTML = `<div class="row"><p>${escapeHtml(message)}</p></div>`;
+}
+
+function formatCommentMeta(comment) {
+  const parts = [comment.created_time];
+  if (comment.source) {
+    parts.push(comment.source === "ad_story" ? "Ad post" : "Page post");
+  }
+  if (comment.post_id) {
+    parts.push(comment.post_id);
+  }
+  return parts.filter(Boolean).join(" · ");
 }
 
 function escapeHtml(value) {

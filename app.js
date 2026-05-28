@@ -1,6 +1,7 @@
 const state = {
   insights: null,
   comments: [],
+  posts: [],
   ads: []
 };
 
@@ -15,6 +16,7 @@ document.getElementById("refreshBtn").addEventListener("click", loadDashboard);
 
 async function loadDashboard() {
   setStatus("commentStatus", "Loading");
+  setStatus("postStatus", "Loading");
   setStatus("adsStatus", "Loading");
 
   const [reportResult, adsResult] = await Promise.allSettled([
@@ -25,12 +27,17 @@ async function loadDashboard() {
   if (reportResult.status === "fulfilled") {
     state.insights = reportResult.value.insights;
     state.comments = reportResult.value.comments;
+    state.posts = reportResult.value.posts || [];
     renderMetrics();
+    renderPosts();
     renderComments();
     setStatus("commentStatus", "Updated");
+    setStatus("postStatus", "Updated");
   } else {
+    renderError("postsList", reportResult.reason.message);
     renderError("commentsList", reportResult.reason.message);
     setStatus("commentStatus", "Needs setup");
+    setStatus("postStatus", "Needs setup");
   }
 
   if (adsResult.status === "fulfilled") {
@@ -49,6 +56,28 @@ function renderMetrics() {
   document.getElementById("impressions").textContent = number.format(Number(insights.impressions || 0));
   document.getElementById("clicks").textContent = number.format(Number(insights.clicks || 0));
   document.getElementById("commentsCount").textContent = number.format(state.comments.length);
+  document.getElementById("postsCount").textContent = number.format(state.posts.length);
+}
+
+function renderPosts() {
+  const target = document.getElementById("postsList");
+  target.innerHTML = "";
+
+  if (!state.posts.length) {
+    target.innerHTML = `<div class="row"><p>No recent posts found. Check META_PAGE_ID and pages_read_engagement permission.</p></div>`;
+    return;
+  }
+
+  for (const post of state.posts) {
+    const row = document.createElement("article");
+    row.className = "row";
+    row.innerHTML = `
+      <strong>${escapeHtml(post.message || post.story || "Untitled post")}</strong>
+      <p>Comments: ${escapeHtml(post.comment_count || 0)}</p>
+      <small>${escapeHtml(formatPostMeta(post))}</small>
+    `;
+    target.appendChild(row);
+  }
 }
 
 function renderComments() {
@@ -135,7 +164,18 @@ function formatCommentMeta(comment) {
   if (comment.post_id) {
     parts.push(comment.post_id);
   }
-  return parts.filter(Boolean).join(" · ");
+  return parts.filter(Boolean).join(" - ");
+}
+
+function formatPostMeta(post) {
+  const parts = [post.created_time];
+  if (post.source) {
+    parts.push(post.source === "ad_story" ? "Ad post" : post.source);
+  }
+  if (post.id) {
+    parts.push(post.id);
+  }
+  return parts.filter(Boolean).join(" - ");
 }
 
 function escapeHtml(value) {
